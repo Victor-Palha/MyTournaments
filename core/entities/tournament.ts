@@ -3,28 +3,34 @@ import { Player } from "./player"
 
 export interface TournamentProps {
     name: string
-    datetime: Date
+    date: Date
+    time: string
+    description: string
     min_quorum: number
     max_quorum: number
     ticket: number
     is_free: boolean
-    players: Player[] | undefined
+    players?: Player[]
 }
 
 export class Tournament{
     public _id: string
     public name: string
-    public datetime: Date
+    public description: string
+    public date: Date
+    public time: string
     public min_quorum: number
     public max_quorum: number
     public ticket: number
     public is_free: boolean
     public players: Player[]
 
-    constructor({name, datetime, min_quorum, max_quorum, ticket, is_free}: TournamentProps){
+    constructor({name, description, date, time, min_quorum, max_quorum, ticket, is_free}: TournamentProps){
         this._id = randomUUID()
         this.name = name
-        this.datetime = datetime
+        this.description = description
+        this.date = date
+        this.time = time
         this.min_quorum = min_quorum
         this.max_quorum = max_quorum
         this.ticket = ticket
