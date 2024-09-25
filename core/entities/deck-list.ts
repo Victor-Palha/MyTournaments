@@ -1,6 +1,12 @@
 import { randomUUID } from "node:crypto"
 import { Card } from "./card"
-
+export interface DeckListProps {
+    player_id: string
+    deck_name: string
+    main_deck: Card[]
+    side_deck: Card[]
+    extra_deck: Card[]
+}
 export class DeckList {
     public _id: string
     public player_id: string
