@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto"
 import { Player } from "./player"
 
-interface TournamentProps {
+export interface TournamentProps {
     name: string
     datetime: Date
     min_quorum: number
@@ -30,17 +30,5 @@ export class Tournament{
         this.ticket = ticket
         this.is_free = is_free
         this.players = []
-    }
-
-    static create({name, datetime, min_quorum, max_quorum, ticket, is_free}: TournamentProps){
-        return new Tournament({
-            name,
-            datetime, 
-            min_quorum,
-            max_quorum,
-            ticket, 
-            is_free,
-            players: []
-        })
     }
 }

@@ -12,8 +12,4 @@ export class Player{
         this._id = randomUUID()
         this.name = name
     }
-
-    static create({name}){
-        return new Player({name})
-    }
 }
