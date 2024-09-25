@@ -1,0 +1,23 @@
+{
+  "name": "mytournaments",
+  "version": "1.0.0",
+  "description": "Simples web api to manage local tournaments",
+  "main": "server.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [
+    "API",
+    "Tournaments",
+    "Nodejs",
+    "Backend",
+    "DDD"
+  ],
+  "author": "Ash",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.7.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
+  }
+}
