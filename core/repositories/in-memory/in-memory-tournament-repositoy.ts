@@ -5,7 +5,7 @@ import { TournamentRepository } from "../tournament-repository";
 export class InMemoryTournamentRepository implements TournamentRepository {
     private tournaments: Tournament[] = []
 
-    async create({name, description, date, time, min_quorum, max_quorum, ticket, is_free}: TournamentProps){
+    public async create({name, description, date, time, min_quorum, max_quorum, ticket, is_free}: TournamentProps){
 
         const tournament = new Tournament({ name, description, date, time, min_quorum, max_quorum, ticket, is_free, players: [] })
 
@@ -14,12 +14,12 @@ export class InMemoryTournamentRepository implements TournamentRepository {
         return tournament
     }
 
-    async findById(id: string){
+    public async findById(id: string){
         const tournament = this.tournaments.find(tournament => tournament._id === id)
         return tournament
     }
 
-    async addPlayer(tournament_id: string, player: Player){
+    public async addPlayer(tournament_id: string, player: Player){
         const tournament = this.tournaments.find(tournament => tournament._id === tournament_id)
 
         if(!tournament){
@@ -28,5 +28,11 @@ export class InMemoryTournamentRepository implements TournamentRepository {
 
         tournament.addPlayer(player)
         return tournament
+    }
+
+    public async fetchAll(open: boolean){
+        const tournaments = this.tournaments.filter(tournament => tournament.is_open === open)
+        
+        return tournaments
     }
 }

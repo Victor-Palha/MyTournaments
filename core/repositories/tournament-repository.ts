@@ -5,4 +5,5 @@ export interface TournamentRepository {
     create: (tournament: TournamentProps) => Promise<Tournament>
     findById: (id: string) => Promise<Tournament | undefined>
     addPlayer: (tournament_id: string, player: Player) => Promise<Tournament>
+    fetchAll: (open: boolean) => Promise<Tournament[]>
 }
