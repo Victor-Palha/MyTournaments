@@ -1,4 +1,5 @@
 import { Card, CardProps } from "../entities/card";
+import { ExtraDeckTooManyError, MainDeckNotEnoughError, MainDeckTooManyError, SideDeckTooManyError } from "./errors/total-cards-errors";
 
 interface CreateCardsUseCaseRequest {
     main_deck: CardProps[]
@@ -37,6 +38,19 @@ export class CreateCardsUseCase{
             total_side_deck += newCard.quantity;
             return newCard;
         });
+
+        if(total_main_deck < 40){
+            throw new MainDeckNotEnoughError();
+        }
+        if(total_main_deck > 60){
+            throw new MainDeckTooManyError();
+        }
+        if(total_extra_deck > 15){
+            throw new ExtraDeckTooManyError();
+        }
+        if(total_side_deck > 15){
+            throw new SideDeckTooManyError();
+        }
 
         return {
             main_deck: mainDeck,
