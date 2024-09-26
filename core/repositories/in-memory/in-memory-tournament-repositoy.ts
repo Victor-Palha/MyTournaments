@@ -1,3 +1,4 @@
+import { Player } from "../../entities/player";
 import { Tournament, TournamentProps } from "../../entities/tournament";
 import { TournamentRepository } from "../tournament-repository";
 
@@ -10,6 +11,22 @@ export class InMemoryTournamentRepository implements TournamentRepository {
 
         this.tournaments.push(tournament)
 
+        return tournament
+    }
+
+    async findById(id: string){
+        const tournament = this.tournaments.find(tournament => tournament._id === id)
+        return tournament
+    }
+
+    async addPlayer(tournament_id: string, player: Player){
+        const tournament = this.tournaments.find(tournament => tournament._id === tournament_id)
+
+        if(!tournament){
+            throw new Error("Tournament not found")
+        }
+
+        tournament.players.push(player)
         return tournament
     }
 }
