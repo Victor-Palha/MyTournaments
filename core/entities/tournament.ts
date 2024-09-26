@@ -24,6 +24,8 @@ export class Tournament{
     public ticket: number
     public is_free: boolean
     public players: Player[]
+    public is_open: boolean = true
+    private secret_key: string = randomUUID()
 
     constructor({name, description, date, time, min_quorum, max_quorum, ticket, is_free}: TournamentProps){
         this._id = randomUUID()
@@ -36,5 +38,19 @@ export class Tournament{
         this.ticket = ticket
         this.is_free = is_free
         this.players = []
+    }
+
+    get secretKey(){
+        return this.secret_key
+    }
+
+    public addPlayer(player: Player){
+        this.players.push(player)
+    }
+
+    public closeTournament(key: string){
+        if(key === this.secret_key){
+            this.is_open = false
+        }
     }
 }

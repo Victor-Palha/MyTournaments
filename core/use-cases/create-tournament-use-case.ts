@@ -2,7 +2,10 @@ import { Tournament, TournamentProps } from "../entities/tournament";
 import { TournamentRepository } from "../repositories/tournament-repository";
 
 interface CreateTournamentUseCaseRequest extends TournamentProps{}
-type CreateTournamentUseCaseResponse = {tournament: Tournament}
+type CreateTournamentUseCaseResponse = {
+    tournament: Tournament
+    secret_key: string
+}
 export class CreateTournamentUseCase {
     constructor(
         private tournamentRepository: TournamentRepository
@@ -14,7 +17,8 @@ export class CreateTournamentUseCase {
         const new_tournament = await this.tournamentRepository.create(tournamenteInformation)
 
         return {
-            tournament: new_tournament
+            tournament: new_tournament,
+            secret_key: new_tournament.secretKey
         }
     }
 }

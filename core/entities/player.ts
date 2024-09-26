@@ -9,7 +9,7 @@ export interface PlayerProps {
 export class Player{
     public _id: string
     public name: string
-    public deck_list: DeckList
+    private deck_list: DeckList
 
     constructor({name, deck_list}: PlayerProps){
         this._id = randomUUID()

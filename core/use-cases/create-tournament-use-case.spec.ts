@@ -24,11 +24,12 @@ describe("create tournament use case", () => {
             is_free: false,
         }
 
-        const {tournament} = await sut.execute(tournamentInformation)
+        const {tournament, secret_key} = await sut.execute(tournamentInformation)
 
         expect(tournament.name).toBe("Tournament 1")
         expect(tournament.date).toBeInstanceOf(Date)
         expect(tournament.description).toBe("This is a tournament")
         expect(tournament.players.length).toBe(0)
+        expect(secret_key).toBeDefined()
     })
 })

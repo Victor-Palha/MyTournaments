@@ -26,7 +26,7 @@ export class InMemoryTournamentRepository implements TournamentRepository {
             throw new Error("Tournament not found")
         }
 
-        tournament.players.push(player)
+        tournament.addPlayer(player)
         return tournament
     }
 }
