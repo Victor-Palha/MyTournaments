@@ -25,7 +25,7 @@ export class Tournament{
     public is_free: boolean
     public players: Player[]
     public is_open: boolean = true
-    private secret_key: string = randomUUID()
+    private secret_key: string
 
     constructor({name, description, date, time, min_quorum, max_quorum, ticket, is_free}: TournamentProps){
         this._id = randomUUID()
@@ -38,6 +38,7 @@ export class Tournament{
         this.ticket = ticket
         this.is_free = is_free
         this.players = []
+        this.secret_key = randomUUID()
     }
 
     get secretKey(){

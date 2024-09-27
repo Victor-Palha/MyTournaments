@@ -1,5 +1,6 @@
 import { Player } from "../../entities/player";
 import { Tournament, TournamentProps } from "../../entities/tournament";
+import { TournamentNotFoundError } from "../../use-cases/errors/tournament-not-found-error";
 import { TournamentRepository } from "../tournament-repository";
 
 export class InMemoryTournamentRepository implements TournamentRepository {
@@ -34,5 +35,16 @@ export class InMemoryTournamentRepository implements TournamentRepository {
         const tournaments = this.tournaments.filter(tournament => tournament.is_open === open)
         
         return tournaments
+    }
+
+    public async close(id: string, key: string){
+        const tournament = this.tournaments.find(tournament => tournament._id === id)
+
+        if(!tournament){
+            throw new TournamentNotFoundError() 
+        }
+
+        tournament.closeTournament(key)
+        return tournament
     }
 }
