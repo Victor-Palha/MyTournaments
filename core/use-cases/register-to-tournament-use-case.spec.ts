@@ -28,9 +28,12 @@ describe("register to an tournament use case", () => {
         const player = new Player(playerInformation)
 
         const {
-            message
+            message,
+            tournament: tournamentUpdated
         } = await sut.execute({player, tournament_id: tournament._id})
 
+
+        expect(tournamentUpdated.players).toContain(player)
         expect(message).toBe("Player registered to tournament")
     })
 })

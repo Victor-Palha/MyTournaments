@@ -34,5 +34,6 @@ describe("fetch tournaments use case", () => {
         })
         
         expect(tournaments.length).toBe(0)
+        
     })
 })

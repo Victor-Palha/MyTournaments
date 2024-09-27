@@ -1,4 +1,5 @@
 import { Player } from "../entities/player";
+import { Tournament } from "../entities/tournament";
 import { TournamentRepository } from "../repositories/tournament-repository";
 import { TournamentNotFoundError } from "./errors/tournament-not-found-error";
 
@@ -7,7 +8,8 @@ interface RegisterToTournamentUseCaseRequest {
     tournament_id: string
 }
 type RegisterToTournamentUseCaseResponse = {
-    message: string
+    message: string,
+    tournament: Tournament
 }
 
 export class RegisterToTournamentUseCase{
@@ -25,7 +27,8 @@ export class RegisterToTournamentUseCase{
         await this.tournamentRepository.addPlayer(tournament_id, player)
         
         return {
-            message: "Player registered to tournament"
+            message: "Player registered to tournament",
+            tournament
         }
     }
 }
