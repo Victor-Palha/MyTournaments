@@ -29,8 +29,10 @@ export class Tournament {
     @Prop()
     public is_free: boolean
 
-    @Prop()
-    public is_open: boolean = true
+    @Prop({
+        default: true
+    })
+    public is_open: boolean
 
     @Prop()
     public secret_key: string
