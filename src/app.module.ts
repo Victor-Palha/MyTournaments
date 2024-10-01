@@ -1,8 +1,8 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { HttpModule } from './http/http.module';
-import { MongooseModule } from '@nestjs/mongoose';
 import { env } from 'process';
+import { MongoModule } from './http/database/mongo/mongo.module';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { env } from 'process';
         return env;
       }
     }),
-    MongooseModule.forRoot(env.MONGO_URI),
+    MongoModule,
     HttpModule
   ]
 })
