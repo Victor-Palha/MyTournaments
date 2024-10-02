@@ -18,6 +18,7 @@ export class MongoTournamentRepository implements TournamentRepository{
         const created_tournament = await this.tournamentModel.create({
             name: tournament.name,
             date: tournament.date,
+            time: tournament.time,
             description: tournament.description,
             is_free: tournament.is_free,
             is_open: true,

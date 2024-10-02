@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './controllers/app.controller';
 import { AppService } from './services/app.service';
 import { CreateTournamentController } from './controllers/tournaments.controller';
-import { CreateTournamentUseCase } from 'src/core/use-cases/create-tournament-use-case';
-import { FetchTournamentsUseCase } from 'src/core/use-cases/fetch-tournaments-use-case';
+import { CreateTournamentUseCase } from '../core/use-cases/create-tournament-use-case';
+import { FetchTournamentsUseCase } from '../core/use-cases/fetch-tournaments-use-case';
+import { GetTournamentByIdUseCase } from '../core/use-cases/get-tournament-by-id-use-case';
 
 @Module({
   imports: [],
@@ -14,7 +15,8 @@ import { FetchTournamentsUseCase } from 'src/core/use-cases/fetch-tournaments-us
   providers: [
     AppService,
     CreateTournamentUseCase,
-    FetchTournamentsUseCase
+    FetchTournamentsUseCase,
+    GetTournamentByIdUseCase
   ],
   exports: []
 })

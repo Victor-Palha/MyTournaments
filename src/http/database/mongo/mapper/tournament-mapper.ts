@@ -15,6 +15,7 @@ export class TournamentMapper {
         })
         tournamentEntity.idTransform = tournament._id
         tournamentEntity.secretKey = tournament.secret_key
+        tournamentEntity.time = tournament.time
 
         return tournamentEntity
     }
