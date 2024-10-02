@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator";
+import { IsBoolean, IsNotEmpty } from "class-validator";
 
 export class CreateTournamentDTO {
 
@@ -25,4 +25,9 @@ export class CreateTournamentDTO {
 
     @IsNotEmpty()
     is_free: boolean;
+}
+
+export class FetchTournamentsDTO {
+    @IsBoolean()
+    open: boolean;
 }

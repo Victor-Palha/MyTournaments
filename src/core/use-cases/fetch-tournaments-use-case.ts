@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Tournament } from "../entities/tournament";
 import { TournamentRepository } from "../repositories/tournament-repository";
 
@@ -7,6 +8,8 @@ interface FetchTournamentsUseCaseRequest{
 type FetchTournamentsUseCaseResponse = {
     tournaments: Tournament[] 
 }
+
+@Injectable()
 export class FetchTournamentsUseCase{
     constructor(
         private tournamentRepository: TournamentRepository

@@ -4,8 +4,9 @@ import { TournamentRepository } from "../../../../core/repositories/tournament-r
 import { Tournament as TournamentSchema } from "../schemas/tournament.schema";
 import { Model } from "mongoose";
 import { TournamentMapper } from "../mapper/tournament-mapper";
-import { Tournament } from "../../../../core/entities/tournament";
+import { Tournament, TournamentProps } from "../../../../core/entities/tournament";
 import { Player } from "../../../../core/entities/player";
+import { randomUUID } from "node:crypto";
 
 @Injectable()
 export class MongoTournamentRepository implements TournamentRepository{
@@ -13,10 +14,21 @@ export class MongoTournamentRepository implements TournamentRepository{
         @InjectModel(TournamentSchema.name) private readonly tournamentModel: Model<TournamentSchema>
     ){}
 
-    async create(tournament: Tournament): Promise<Tournament>{
-        const data = TournamentMapper.toPersistence(tournament)
-        const created_tournament = await this.tournamentModel.create(data)
-        return TournamentMapper.toEntity(created_tournament)
+    async create(tournament: TournamentProps): Promise<Tournament>{
+        const created_tournament = await this.tournamentModel.create({
+            name: tournament.name,
+            date: tournament.date,
+            description: tournament.description,
+            is_free: tournament.is_free,
+            is_open: true,
+            max_quorum: tournament.max_quorum,
+            min_quorum: tournament.min_quorum,
+            ticket: tournament.ticket,
+            secret_key: randomUUID()
+        })
+
+        const tournamentEntity = TournamentMapper.toEntity(created_tournament)
+        return tournamentEntity
     }
 
     async close(id: string, key: string): Promise<Tournament>{
@@ -31,7 +43,8 @@ export class MongoTournamentRepository implements TournamentRepository{
 
     async fetchAll(open: boolean): Promise<Tournament[]>{
         const tournaments = await this.tournamentModel.find({ is_open: open })
-        return tournaments.map(tournament => TournamentMapper.toEntity(tournament))
+        const tournamentsEntities = tournaments.map(tournament => TournamentMapper.toEntity(tournament))
+        return tournamentsEntities
     };
 
     addPlayer: (tournament_id: string, player: Player) => Promise<Tournament>;

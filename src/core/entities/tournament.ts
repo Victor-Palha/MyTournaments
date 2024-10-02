@@ -1,5 +1,7 @@
 import { randomUUID } from "node:crypto"
 import { Player } from "./player"
+import { TournamentDocument } from "src/http/database/mongo/schemas/tournament.schema"
+import { ObjectId, Types } from "mongoose"
 
 export interface TournamentProps {
     name: string
@@ -53,5 +55,13 @@ export class Tournament{
         if(key === this.secret_key){
             this.is_open = false
         }
+    }
+
+    set secretKey(key: string){
+        this.secret_key = key
+    }
+
+    set idTransform(id: Types.ObjectId){
+        this._id = id.toHexString()
     }
 }

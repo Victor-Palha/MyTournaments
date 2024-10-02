@@ -4,6 +4,9 @@ import request from 'supertest';
 import { MongoModule } from '../database/mongo/mongo.module';
 import { CreateTournamentController } from './tournaments.controller';
 import { CreateTournamentUseCase } from '../../core/use-cases/create-tournament-use-case';
+import { FetchTournamentsUseCase } from 'src/core/use-cases/fetch-tournaments-use-case';
+import { Model } from 'mongoose';
+import { Tournament } from '../database/mongo/schemas/tournament.schema';
 
 
 describe('Create tournament controller', () => {
@@ -14,7 +17,7 @@ describe('Create tournament controller', () => {
         const moduleRef = await Test.createTestingModule({
             imports: [MongoModule],
             controllers: [CreateTournamentController],
-            providers: [CreateTournamentUseCase],
+            providers: [CreateTournamentUseCase, FetchTournamentsUseCase],
         }).compile();
 
         app = moduleRef.createNestApplication();
@@ -56,7 +59,17 @@ describe('Create tournament controller', () => {
         expect(response.status).toBe(400);
     });
 
+    it('should list all tournaments', async () => {
+        const response = await request(httpServer).get('/tournament/list').send({ open: true });
+        expect(response.status).toBe(200);
+        const { tournaments } = response.body;
+        console.log(tournaments);
+        expect(tournaments.length).toBeGreaterThanOrEqual(1);
+    });
+
     afterAll(async () => {
+        // Delete all tournaments
+
         await app.close();
     });
 });

@@ -3,6 +3,7 @@ import { AppController } from './controllers/app.controller';
 import { AppService } from './services/app.service';
 import { CreateTournamentController } from './controllers/tournaments.controller';
 import { CreateTournamentUseCase } from 'src/core/use-cases/create-tournament-use-case';
+import { FetchTournamentsUseCase } from 'src/core/use-cases/fetch-tournaments-use-case';
 
 @Module({
   imports: [],
@@ -12,7 +13,8 @@ import { CreateTournamentUseCase } from 'src/core/use-cases/create-tournament-us
   ],
   providers: [
     AppService,
-    CreateTournamentUseCase
+    CreateTournamentUseCase,
+    FetchTournamentsUseCase
   ],
   exports: []
 })
