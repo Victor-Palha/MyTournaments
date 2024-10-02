@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { DeckListRepository } from "src/core/repositories/deck-list-repository";
+import { DeckListRepository } from "../../../../core/repositories/deck-list-repository";
 import { DeckList as DeckListSchema } from "../schemas/deck-list.schema";
 import { Model } from "mongoose";
-import { DeckList } from "src/core/entities/deck-list";
+import { DeckList } from "../../../../core/entities/deck-list";
 import { DeckListMapper } from "../mapper/deck-list-mapper";
 
 @Injectable()

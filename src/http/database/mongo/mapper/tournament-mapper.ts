@@ -1,4 +1,4 @@
-import { Tournament } from "src/core/entities/tournament"
+import { Tournament } from "../../../../core/entities/tournament"
 
 export class TournamentMapper {
     static toEntity(tournament: any) {

@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { TournamentRepository } from "src/core/repositories/tournament-repository";
+import { TournamentRepository } from "../../../../core/repositories/tournament-repository";
 import { Tournament as TournamentSchema } from "../schemas/tournament.schema";
 import { Model } from "mongoose";
 import { TournamentMapper } from "../mapper/tournament-mapper";
-import { Tournament } from "src/core/entities/tournament";
-import { Player } from "src/core/entities/player";
+import { Tournament } from "../../../../core/entities/tournament";
+import { Player } from "../../../../core/entities/player";
 
 @Injectable()
 export class MongoTournamentRepository implements TournamentRepository{

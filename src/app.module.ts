@@ -3,17 +3,16 @@ import { Module } from '@nestjs/common';
 import { HttpModule } from './http/http.module';
 import { env } from 'process';
 import { MongoModule } from './http/database/mongo/mongo.module';
+import { CoreModule } from './core/core.module';
+import { PersistenceModule } from './http/database/persistence.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      validate: () => {
-        return env;
-      }
+    PersistenceModule.register({
+      type: 'mongoose',
+      global: true,
     }),
-    MongoModule,
-    HttpModule
+    CoreModule,
   ]
 })
 export class AppModule {};

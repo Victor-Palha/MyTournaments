@@ -1,4 +1,4 @@
-import { DeckList } from "src/core/entities/deck-list"
+import { DeckList } from "../../../../core/entities/deck-list"
 
 export class DeckListMapper{
     static toEntity(deck_list: any): DeckList{
