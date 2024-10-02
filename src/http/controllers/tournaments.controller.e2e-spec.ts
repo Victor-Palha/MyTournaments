@@ -2,7 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';;
 import request from 'supertest';
 import { MongoModule } from '../database/mongo/mongo.module';
-import { CreateTournamentController } from './create-tournament.controller';
+import { CreateTournamentController } from './tournaments.controller';
 import { CreateTournamentUseCase } from '../../core/use-cases/create-tournament-use-case';
 
 
