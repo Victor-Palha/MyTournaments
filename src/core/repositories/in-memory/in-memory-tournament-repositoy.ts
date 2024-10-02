@@ -37,8 +37,8 @@ export class InMemoryTournamentRepository implements TournamentRepository {
         return tournaments
     }
 
-    public async close(id: string, key: string){
-        const tournament = this.tournaments.find(tournament => tournament._id === id)
+    public async close(key: string){
+        const tournament = this.tournaments.find(tournament => tournament.secretKey === key)
 
         if(!tournament){
             throw new TournamentNotFoundError() 

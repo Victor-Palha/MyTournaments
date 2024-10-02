@@ -32,8 +32,12 @@ export class MongoTournamentRepository implements TournamentRepository{
         return tournamentEntity
     }
 
-    async close(id: string, key: string): Promise<Tournament>{
-        const tournament = await this.tournamentModel.findOneAndUpdate({ _id: id, key }, { is_open: true })
+    async close(key: string): Promise<Tournament>{
+        const tournament = await this.tournamentModel.findOneAndUpdate({
+            secret_key: key
+        }, {
+            is_open: false
+        })
         return TournamentMapper.toEntity(tournament)
     };
 

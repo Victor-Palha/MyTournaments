@@ -31,3 +31,8 @@ export class FetchTournamentsDTO {
     @IsBoolean()
     open: boolean;
 }
+
+export class CloseTournamentDTO {
+    @IsNotEmpty()
+    key: string
+}

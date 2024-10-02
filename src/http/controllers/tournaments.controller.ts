@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { CreateTournamentUseCase } from "../../core/use-cases/create-tournament-use-case";
-import { CreateTournamentDTO, FetchTournamentsDTO } from "../dto/tournaments-dto";
+import { CloseTournamentDTO, CreateTournamentDTO, FetchTournamentsDTO } from "../dto/tournaments-dto";
 import { FetchTournamentsUseCase } from "../../core/use-cases/fetch-tournaments-use-case";
 import { GetTournamentByIdUseCase } from "../../core/use-cases/get-tournament-by-id-use-case";
+import { CloseTournamentUseCase } from "../../core/use-cases/close-tournament-use-case";
 
 
 @Controller("/tournament")
@@ -10,7 +11,8 @@ export class CreateTournamentController {
   constructor(
     private createTournamentUseCase: CreateTournamentUseCase,
     private fetchTournamentsUseCase: FetchTournamentsUseCase,
-    private getTournamentByIdUseCase: GetTournamentByIdUseCase
+    private getTournamentByIdUseCase: GetTournamentByIdUseCase,
+    private closeTournamentUseCase: CloseTournamentUseCase
   ) {}
 
   @Post("/")
@@ -60,6 +62,21 @@ export class CreateTournamentController {
     return {
       message: "Tournament found",
       tournament
+    }
+  }
+
+  @Patch("/:id")
+  public async closeTournament(@Param("id") id: string, @Body() body: CloseTournamentDTO){
+    const {key} = body
+
+    if(!id){
+      throw new BadRequestException("Tournament id are required")
+    }
+
+    await this.closeTournamentUseCase.execute({id, key})
+
+    return {
+      message: "Tournament closed successfully"
     }
   }
 }

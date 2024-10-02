@@ -5,6 +5,7 @@ import { CreateTournamentController } from './controllers/tournaments.controller
 import { CreateTournamentUseCase } from '../core/use-cases/create-tournament-use-case';
 import { FetchTournamentsUseCase } from '../core/use-cases/fetch-tournaments-use-case';
 import { GetTournamentByIdUseCase } from '../core/use-cases/get-tournament-by-id-use-case';
+import { CloseTournamentUseCase } from '../core/use-cases/close-tournament-use-case';
 
 @Module({
   imports: [],
@@ -16,7 +17,8 @@ import { GetTournamentByIdUseCase } from '../core/use-cases/get-tournament-by-id
     AppService,
     CreateTournamentUseCase,
     FetchTournamentsUseCase,
-    GetTournamentByIdUseCase
+    GetTournamentByIdUseCase,
+    CloseTournamentUseCase
   ],
   exports: []
 })
