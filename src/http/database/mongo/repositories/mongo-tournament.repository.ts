@@ -2,11 +2,13 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { TournamentRepository } from "../../../../core/repositories/tournament-repository";
 import { Tournament as TournamentSchema } from "../schemas/tournament.schema";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import { TournamentMapper } from "../mapper/tournament-mapper";
 import { Tournament, TournamentProps } from "../../../../core/entities/tournament";
 import { Player } from "../../../../core/entities/player";
 import { randomUUID } from "node:crypto";
+import { DeckList } from "../schemas/deck-list.schema";
+import { PlayerDocument } from "../schemas/player.schema";
 
 @Injectable()
 export class MongoTournamentRepository implements TournamentRepository{
@@ -52,5 +54,18 @@ export class MongoTournamentRepository implements TournamentRepository{
         return tournamentsEntities
     };
 
-    addPlayer: (tournament_id: string, player: Player) => Promise<Tournament>;
+    async addPlayer(tournament_id: string, player: PlayerDocument): Promise<Tournament>{
+        const updatedTournament = await this.tournamentModel.findByIdAndUpdate(
+            tournament_id,
+            {
+                $push: {
+                    players: player.id
+                }
+            },
+            { new: true }  // Retorna o documento atualizado
+        ).populate('players.deck_list');  
+        // Salva o torneio com o novo jogador
+
+        return TournamentMapper.toEntity(updatedTournament)
+    };
 }

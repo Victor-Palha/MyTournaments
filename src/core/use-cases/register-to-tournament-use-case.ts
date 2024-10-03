@@ -3,9 +3,10 @@ import { Player } from "../entities/player";
 import { Tournament } from "../entities/tournament";
 import { TournamentRepository } from "../repositories/tournament-repository";
 import { TournamentNotFoundError } from "./errors/tournament-not-found-error";
+import { PlayerDocument } from "src/http/database/mongo/schemas/player.schema";
 
 interface RegisterToTournamentUseCaseRequest {
-    player: Player
+    player: Player | PlayerDocument
     tournament_id: string
 }
 type RegisterToTournamentUseCaseResponse = {

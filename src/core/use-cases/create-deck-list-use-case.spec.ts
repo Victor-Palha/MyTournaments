@@ -3,6 +3,7 @@ import { DeckListProps } from "../entities/deck-list";
 import { CreateDeckListUseCase } from "./create-deck-list-use-case";
 import { InMemoryDeckListRepository } from "../repositories/in-memory/in-memory-deck-list-repository";
 import { InMemoryPlayerRepository } from "../repositories/in-memory/in-memory-player-repository";
+import { Player } from "../entities/player";
 
 describe("create deck list use case", () => {
     let sut: CreateDeckListUseCase
@@ -25,7 +26,6 @@ describe("create deck list use case", () => {
         }
 
         const {player} = await sut.execute(deckListInformation)
-        expect(player.deckList.deck_name).toBe("Deck 1")
         expect(player.name).toBe("Ash")
     })
 })

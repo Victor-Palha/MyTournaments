@@ -3,13 +3,14 @@ import { DeckList, DeckListProps } from "../entities/deck-list";
 import { Player } from "../entities/player";
 import { DeckListRepository } from "../repositories/deck-list-repository";
 import { PlayerRepository } from "../repositories/player-repository";
+import { PlayerDocument } from "src/http/database/mongo/schemas/player.schema";
 
 
 interface CreateDeckListUseCaseRequest extends DeckListProps {
     player_name: string
 }
 type CreateDeckListUseCaseResponse = {
-    player: Player
+    player: Player | PlayerDocument
 }
 
 @Injectable()

@@ -2,7 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';;
 import request from 'supertest';
 import { MongoModule } from '../database/mongo/mongo.module';
-import { CreateTournamentController } from './tournaments.controller';
+import { TournamentsController } from './tournaments.controller';
 import { CreateTournamentUseCase } from '../../core/use-cases/create-tournament-use-case';
 import { FetchTournamentsUseCase } from '../../core/use-cases/fetch-tournaments-use-case';
 import { GetTournamentByIdUseCase } from '../../core/use-cases/get-tournament-by-id-use-case';
@@ -16,7 +16,7 @@ describe('Create tournament controller', () => {
     beforeEach(async () => {
         const moduleRef = await Test.createTestingModule({
             imports: [MongoModule],
-            controllers: [CreateTournamentController],
+            controllers: [TournamentsController],
             providers: [CreateTournamentUseCase, FetchTournamentsUseCase, GetTournamentByIdUseCase, CloseTournamentUseCase],
         }).compile();
 

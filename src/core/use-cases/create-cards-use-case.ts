@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Card, CardProps } from "../entities/card";
 import { ExtraDeckTooManyError, MainDeckNotEnoughError, MainDeckTooManyError, SideDeckTooManyError } from "./errors/total-cards-errors";
 
@@ -15,8 +16,10 @@ interface CreateCardsUseCaseResponse {
     total_side_deck: number
     total_extra_deck: number
 }
+
+@Injectable()
 export class CreateCardsUseCase{
-    async execute({main_deck, extra_deck, side_deck}: CreateCardsUseCaseRequest): Promise<CreateCardsUseCaseResponse>{
+    execute({main_deck, extra_deck, side_deck}: CreateCardsUseCaseRequest): CreateCardsUseCaseResponse{
         let total_main_deck = 0;
         let total_extra_deck = 0;
         let total_side_deck = 0;

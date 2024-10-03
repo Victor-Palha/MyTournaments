@@ -7,7 +7,7 @@ import { CloseTournamentUseCase } from "../../core/use-cases/close-tournament-us
 
 
 @Controller("/tournament")
-export class CreateTournamentController {
+export class TournamentsController {
   constructor(
     private createTournamentUseCase: CreateTournamentUseCase,
     private fetchTournamentsUseCase: FetchTournamentsUseCase,

@@ -10,9 +10,6 @@ export type DeckListDocument = HydratedDocument<DeckList>
 @Schema()
 export class DeckList {
     @Prop({ type: String })
-    public player_id: string;
-
-    @Prop({ type: String })
     public deck_name: string;
 
     @Prop({ type: [{ id_card_pro: String, card_name: String, image_url: String, quantity: Number }] })

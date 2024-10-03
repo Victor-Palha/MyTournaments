@@ -8,6 +8,8 @@ import { MongoDeckListRepository } from "./repositories/mongo-deck-list.reposito
 import { TournamentRepository } from "../../../core/repositories/tournament-repository";
 import { MongoTournamentRepository } from "./repositories/mongo-tournament.repository";
 import { EnvModule, EnvService } from "../../env";
+import { PlayerRepository } from "../../../core/repositories/player-repository";
+import { MongoPlayerRepository } from "./repositories/mongo-player.repository";
 
 @Module({
     imports: [
@@ -32,11 +34,16 @@ import { EnvModule, EnvService } from "../../env";
         {
             provide: TournamentRepository,
             useClass: MongoTournamentRepository
+        },
+        {
+            provide: PlayerRepository,
+            useClass: MongoPlayerRepository
         }
     ],
     exports: [
         DeckListRepository,
-        TournamentRepository
+        TournamentRepository,
+        PlayerRepository
     ]
 })
 export class MongoModule {}
