@@ -200,7 +200,6 @@ export async function createDeckListHelper(deckListRepository: DeckListRepositor
         extra_deck,
         side_deck,
         deck_name: "Mimighoul Deck",
-        player_id: "1"
     })
 
     return {deck_list: deckList}

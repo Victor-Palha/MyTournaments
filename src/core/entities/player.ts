@@ -16,4 +16,8 @@ export class Player{
         this.name = name
         this.deck_list = deck_list
     }
+
+    get deckList(){
+        return this.deck_list
+    }
 }
