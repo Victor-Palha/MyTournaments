@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Player } from "../entities/player";
 import { Tournament } from "../entities/tournament";
 import { TournamentRepository } from "../repositories/tournament-repository";
@@ -12,6 +13,7 @@ type RegisterToTournamentUseCaseResponse = {
     tournament: Tournament
 }
 
+@Injectable()
 export class RegisterToTournamentUseCase{
     constructor(
         private tournamentRepository: TournamentRepository

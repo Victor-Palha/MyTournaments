@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { DeckList, DeckListProps } from "../entities/deck-list";
 import { Player } from "../entities/player";
 import { DeckListRepository } from "../repositories/deck-list-repository";
@@ -11,6 +12,7 @@ type CreateDeckListUseCaseResponse = {
     player: Player
 }
 
+@Injectable()
 export class CreateDeckListUseCase {
     constructor(
         private readonly deckListRepository: DeckListRepository,
