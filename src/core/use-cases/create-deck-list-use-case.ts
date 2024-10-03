@@ -10,7 +10,7 @@ interface CreateDeckListUseCaseRequest extends DeckListProps {
     player_name: string
 }
 type CreateDeckListUseCaseResponse = {
-    player: Player | PlayerDocument
+    player: PlayerDocument
 }
 
 @Injectable()
@@ -31,7 +31,7 @@ export class CreateDeckListUseCase {
         const deck_list = await this.deckListRepository.create(deckListInformation)
         const player = await this.playerRepository.create({
             name: player_name,
-            deck_list
+            deck_list: deck_list.id
         })
 
         return {

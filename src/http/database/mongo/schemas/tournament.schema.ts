@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Schema as MongooseSchema  } from "mongoose";
-import { Player } from "./player.schema";
+import { Player, PlayerSchema } from "./player.schema";
 
 export type TournamentDocument = HydratedDocument<Tournament>
 @Schema()
@@ -37,7 +37,7 @@ export class Tournament {
     @Prop()
     public secret_key: string
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Player' })
+    @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: Player.name }]})
     public players: Player[]
 }
 

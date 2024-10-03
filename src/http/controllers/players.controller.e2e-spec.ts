@@ -64,8 +64,8 @@ describe('Create tournament controller', () => {
             side_deck: sideDeckInformation
         })
 
-        console.log(response.body)
-        // expect(response.status).toBe(201)
+        // console.log(response.body)
+        expect(response.status).toBe(201)
     });
 
     afterAll(async () => {

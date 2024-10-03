@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto"
 import { Card } from "./card"
-import { Types } from "mongoose"
+
 export interface DeckListProps {
     deck_name: string
     main_deck: Card[]

@@ -1,6 +1,4 @@
 import { CardProps } from "../../entities/card";
-import { DeckListRepository } from "../../repositories/deck-list-repository";
-import { CreateCardsUseCase } from "../create-cards-use-case";
 
 export const mainDeckInformation: CardProps[] = [{
     card_name: "Mimighoul Master",
@@ -155,21 +153,3 @@ export const sideDeckInformation: CardProps[] = [{
     image_url: "https://images.ygoprodeck.com/images/cards_small/14532163.jpg",
     quantity: 2
 }]
-
-export async function createDeckListHelper(deckListRepository: DeckListRepository){
-
-    const {main_deck, extra_deck, side_deck} = await new CreateCardsUseCase().execute({
-        extra_deck: extraDeckInformation,
-        main_deck: mainDeckInformation,
-        side_deck: sideDeckInformation
-    })
-
-    const deckList = await deckListRepository.create({
-        main_deck,
-        extra_deck,
-        side_deck,
-        deck_name: "Mimighoul Deck",
-    })
-
-    return {deck_list: deckList}
-}

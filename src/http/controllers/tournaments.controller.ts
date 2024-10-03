@@ -59,6 +59,7 @@ export class TournamentsController {
       throw new BadRequestException("Tournament id is required")
     }
     const {tournament} = await this.getTournamentByIdUseCase.execute({id})
+
     return {
       message: "Tournament found",
       tournament

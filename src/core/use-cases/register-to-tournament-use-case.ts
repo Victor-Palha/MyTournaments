@@ -4,14 +4,15 @@ import { Tournament } from "../entities/tournament";
 import { TournamentRepository } from "../repositories/tournament-repository";
 import { TournamentNotFoundError } from "./errors/tournament-not-found-error";
 import { PlayerDocument } from "src/http/database/mongo/schemas/player.schema";
+import { TournamentDocument } from "src/http/database/mongo/schemas/tournament.schema";
 
 interface RegisterToTournamentUseCaseRequest {
-    player: Player | PlayerDocument
+    player: PlayerDocument
     tournament_id: string
 }
 type RegisterToTournamentUseCaseResponse = {
     message: string,
-    tournament: Tournament
+    tournament: TournamentDocument
 }
 
 @Injectable()

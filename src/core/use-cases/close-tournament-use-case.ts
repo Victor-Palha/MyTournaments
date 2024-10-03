@@ -1,16 +1,16 @@
 import { Injectable } from "@nestjs/common"
-import { Tournament } from "../entities/tournament"
 import { TournamentRepository } from "../repositories/tournament-repository"
 import { TournamentAlreadyClosedError } from "./errors/tournament-already-closed-error"
 import { TournamentInvalidKeyError } from "./errors/tournament-invalid-key-error"
 import { TournamentNotFoundError } from "./errors/tournament-not-found-error"
+import { TournamentDocument } from "src/http/database/mongo/schemas/tournament.schema"
 
 interface CloseTournamentUseCaseRequest {
     id: string
     key: string
 }
 type CloseTournamentUseCaseResponse = {
-    tournament: Tournament
+    tournament: TournamentDocument
 }
 
 @Injectable()
@@ -27,7 +27,7 @@ export class CloseTournamentUseCase{
         if(tournament.is_open == false){
             throw new TournamentAlreadyClosedError()
         }
-        if(tournament.secretKey !== key){
+        if(tournament.secret_key !== key){
             throw new TournamentInvalidKeyError()
         }
 

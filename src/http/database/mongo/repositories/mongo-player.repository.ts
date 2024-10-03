@@ -2,9 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
 import { PlayerRepository } from "../../../../core/repositories/player-repository";
-import { Player, PlayerProps } from "../../../../core/entities/player";
-import { PlayerDocument, Player as PlayerSchema } from "../schemas/player.schema";
-import { PlayerMapper } from "../mapper/player-mapper";
+import { PlayerProps } from "../../../../core/entities/player";
+import { Player as PlayerSchema } from "../schemas/player.schema";
 
 @Injectable()
 export class MongoPlayerRepository implements PlayerRepository{
@@ -12,10 +11,10 @@ export class MongoPlayerRepository implements PlayerRepository{
         @InjectModel(PlayerSchema.name) private readonly playerModel: Model<PlayerSchema>
     ){}
 
-    async create(player: PlayerProps): Promise<Player | PlayerDocument>{
+    async create(player: PlayerProps){
         const player_created = await this.playerModel.create({
             name: player.name,
-            deck_list: new Types.ObjectId(player.deck_list._id)
+            deck_list: player.deck_list
         })
 
         return player_created

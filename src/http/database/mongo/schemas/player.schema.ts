@@ -8,7 +8,7 @@ export class Player {
     @Prop()
     public name: string
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'DeckList' })
+    @Prop({ type: MongooseSchema.Types.ObjectId, ref: DeckList.name})
     public deck_list: DeckList
 }
 export const PlayerSchema = SchemaFactory.createForClass(Player)

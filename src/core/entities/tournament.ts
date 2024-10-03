@@ -1,7 +1,6 @@
 import { randomUUID } from "node:crypto"
 import { Player } from "./player"
-import { TournamentDocument } from "src/http/database/mongo/schemas/tournament.schema"
-import { ObjectId, Types } from "mongoose"
+import { Types } from "mongoose"
 
 export interface TournamentProps {
     name: string

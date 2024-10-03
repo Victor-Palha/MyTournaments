@@ -3,11 +3,8 @@ import { InjectModel } from "@nestjs/mongoose";
 import { TournamentRepository } from "../../../../core/repositories/tournament-repository";
 import { Tournament as TournamentSchema } from "../schemas/tournament.schema";
 import { Model, Types } from "mongoose";
-import { TournamentMapper } from "../mapper/tournament-mapper";
-import { Tournament, TournamentProps } from "../../../../core/entities/tournament";
-import { Player } from "../../../../core/entities/player";
+import { TournamentProps } from "../../../../core/entities/tournament";
 import { randomUUID } from "node:crypto";
-import { DeckList } from "../schemas/deck-list.schema";
 import { PlayerDocument } from "../schemas/player.schema";
 
 @Injectable()
@@ -16,7 +13,7 @@ export class MongoTournamentRepository implements TournamentRepository{
         @InjectModel(TournamentSchema.name) private readonly tournamentModel: Model<TournamentSchema>
     ){}
 
-    async create(tournament: TournamentProps): Promise<Tournament>{
+    async create(tournament: TournamentProps){
         const created_tournament = await this.tournamentModel.create({
             name: tournament.name,
             date: tournament.date,
@@ -30,42 +27,42 @@ export class MongoTournamentRepository implements TournamentRepository{
             secret_key: randomUUID()
         })
 
-        const tournamentEntity = TournamentMapper.toEntity(created_tournament)
-        return tournamentEntity
+        return created_tournament
     }
 
-    async close(key: string): Promise<Tournament>{
+    async close(key: string){
         const tournament = await this.tournamentModel.findOneAndUpdate({
             secret_key: key
         }, {
             is_open: false
         })
-        return TournamentMapper.toEntity(tournament)
+        return tournament
     };
 
-    async findById(id: string): Promise<Tournament | undefined>{
+    async findById(id: string){
         const tournament = await this.tournamentModel.findById(id)
-        return TournamentMapper.toEntity(tournament)
+        .populate({
+            path: 'players',
+            populate: {
+              path: 'deck_list', // Popula também o deck_list dentro de cada player
+            }
+          });
+        return tournament
     };
 
-    async fetchAll(open: boolean): Promise<Tournament[]>{
+    async fetchAll(open: boolean){
         const tournaments = await this.tournamentModel.find({ is_open: open })
-        const tournamentsEntities = tournaments.map(tournament => TournamentMapper.toEntity(tournament))
-        return tournamentsEntities
+
+        return tournaments
     };
 
-    async addPlayer(tournament_id: string, player: PlayerDocument): Promise<Tournament>{
-        const updatedTournament = await this.tournamentModel.findByIdAndUpdate(
-            tournament_id,
-            {
-                $push: {
-                    players: player.id
-                }
-            },
-            { new: true }  // Retorna o documento atualizado
-        ).populate('players.deck_list');  
-        // Salva o torneio com o novo jogador
+    async addPlayer(tournament_id: string, player: PlayerDocument){
+        const tournament = await this.tournamentModel.findByIdAndUpdate(tournament_id, {
+            $push: {
+                players: player._id
+            }
+        })
 
-        return TournamentMapper.toEntity(updatedTournament)
+        return tournament
     };
 }

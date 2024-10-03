@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto"
 export interface CardProps {
     id_card_pro: string
     card_name: string
