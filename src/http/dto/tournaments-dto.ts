@@ -29,7 +29,7 @@ export class CreateTournamentDTO {
 
 export class FetchTournamentsDTO {
     @IsBoolean()
-    open: boolean;
+    open: boolean = true;
 }
 
 export class CloseTournamentDTO {
