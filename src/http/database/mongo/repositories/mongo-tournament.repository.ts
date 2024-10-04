@@ -35,7 +35,7 @@ export class MongoTournamentRepository implements TournamentRepository{
             secret_key: key
         }, {
             is_open: false
-        })
+        }).select('-secret_key');
         return tournament
     };
 
@@ -56,7 +56,7 @@ export class MongoTournamentRepository implements TournamentRepository{
     };
 
     async fetchAll(open: boolean){
-        const tournaments = await this.tournamentModel.find({ is_open: open })
+        const tournaments = await this.tournamentModel.find({ is_open: open }).select('-secret_key');
 
         return tournaments
     };
@@ -66,7 +66,7 @@ export class MongoTournamentRepository implements TournamentRepository{
             $push: {
                 players: player._id
             }
-        })
+        }).select('-secret_key');
 
         return tournament
     };
