@@ -5,6 +5,7 @@ import { TournamentRepository } from "../repositories/tournament-repository";
 import { TournamentNotFoundError } from "./errors/tournament-not-found-error";
 import { PlayerDocument } from "src/http/database/mongo/schemas/player.schema";
 import { TournamentDocument } from "src/http/database/mongo/schemas/tournament.schema";
+import { TournamentAlreadyClosedError } from "./errors/tournament-already-closed-error";
 
 interface RegisterToTournamentUseCaseRequest {
     player: PlayerDocument
@@ -26,6 +27,9 @@ export class RegisterToTournamentUseCase{
 
         if(!tournament){
             throw new TournamentNotFoundError()
+        }
+        if(!tournament.is_open){
+            throw new TournamentAlreadyClosedError()
         }
 
         await this.tournamentRepository.addPlayer(tournament_id, player)
