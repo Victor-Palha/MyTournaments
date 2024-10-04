@@ -41,12 +41,17 @@ export class MongoTournamentRepository implements TournamentRepository{
 
     async findById(id: string){
         const tournament = await this.tournamentModel.findById(id)
-        .populate({
-            path: 'players',
-            populate: {
-              path: 'deck_list', // Popula também o deck_list dentro de cada player
-            }
-          });
+        if(tournament.is_open === false){
+            await tournament.populate({
+                path: 'players',
+                populate: {
+                  path: 'deck_list', // Popula também o deck_list dentro de cada player
+                }
+            });
+        }
+        if(tournament.is_open === true){
+            await tournament.populate("players")
+        }
         return tournament
     };
 

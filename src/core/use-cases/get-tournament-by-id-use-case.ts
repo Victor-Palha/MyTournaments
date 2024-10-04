@@ -22,6 +22,7 @@ export class GetTournamentByIdUseCase {
         if(!tournament){
             throw new TournamentNotFoundError()
         }
+
         return {
             tournament
         }
